@@ -1,0 +1,6 @@
+include AUTHORS
+include LICENSE
+include README.rst
+recursive-include critique/static *
+recursive-include critique/templates *
+recursive-include docs *
