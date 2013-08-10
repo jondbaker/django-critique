@@ -23,6 +23,6 @@ setup(
         "Topic :: Software Development"],
     zip_safe=False,
     install_requires=[
-        "django>=1.3.1"],
-    tests_require=["Django>=1.4.1", "selenium"],
+        "django>=1.5.1"],
+    tests_require=["Django>=1.5.1", "selenium"],
     test_suite="runtests.runtests",)
