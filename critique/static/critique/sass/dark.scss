@@ -1,0 +1,55 @@
+@import "global";
+
+#dj-critique {
+    background: $d-bgcolor;
+    color: $d-fontcolor;
+    @include box-shadow(rgba(0, 0, 0, 1) 0px -12px 18px 13px);
+}
+#dj-critique-prompt {
+	color: $d-primary;
+    &:hover,
+    &:active,
+    &:focus {
+        color: $d-active;
+    }
+}
+#dj-critique-create input,
+#dj-critique-create textarea {
+    border: 1px solid $plain-black;
+}
+#dj-critique-create input[type=text],
+#dj-critique-create textarea {
+    color: $d-bgcolor;
+}
+#dj-critique-submit {
+    background: $d-primary;
+    border: 1px solid #268c85;
+    color: $plain-white;
+    font-weight: bold;
+    &:hover,
+    &:active,
+    &:focus {
+        background: $d-active;
+    }
+}
+#dj-critique-cancel {
+    background: #3b3b3b;
+    border: 1px solid #454545;
+    color: #959595;
+    &:hover,
+    &:active,
+    &:focus {
+        background: #2f2f2f;
+    }
+}
+#dj-critique-create .dj-critique-error {
+    border-color: $d-errorcolor;
+}
+#dj-critique-feedback {
+	background: $l-errorcolor;
+    border: 1px solid $l-feedbackborder;
+    p {
+    	color: $l-feedbackcolor;
+    	font-weight: bold;
+    }
+}

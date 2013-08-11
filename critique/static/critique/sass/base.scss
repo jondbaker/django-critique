@@ -1,0 +1,114 @@
+@import "global";
+
+#dj-critique {
+    margin: 0;
+    padding: 0;
+    /* Critique should always appear on top of site content */
+    z-index: 1000;
+    position: relative;
+}
+#dj-critique,
+#dj-critique input,
+#dj-critique textarea {
+    font-size: $base-font-size;
+    font-family: $arial;
+    line-height: $base-line-height;
+}
+#dj-critique-wrapper {
+    margin: 0 auto;
+
+    width: 98%;
+    @include breakpoint(small) {
+        width: 90%;
+    }
+    @include breakpoint(medium) {
+        width: 70%;
+    }
+    @include breakpoint(large) {
+        width: 60%;
+    }
+}
+#dj-critique-prompt {
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+}
+#dj-critique-create {
+    margin: 0 pxtoem(10px, $base-font-size);
+    ul {
+        margin: 0;
+        padding: 0;
+        li {
+            list-style: none;
+            margin: 0 0 pxtoem(10px, $base-font-size) 0;
+        }
+    }
+}
+#dj-critique-feedback,
+#dj-critique-create input,
+#dj-critique-create textarea {
+    @include border-radius(pxtoem(4px, $base-font-size));
+}
+#dj-critique-create input[type=text],
+#dj-critique-create textarea {
+    padding: pxtoem(5px, $base-font-size);
+    @include box-sizing(border-box);
+}
+#dj-critique-create textarea {
+    resize: none;
+}
+#dj-critique-email {
+    height: 28px;
+    width: 100%;
+}
+#dj-critique-message {
+    height: 88px;
+    width: 100%;
+}
+#dj-critique-feedback {
+    display: none;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    p {
+        line-height: pxtoem(26px, $base-font-size);
+        margin: 0;
+    }
+}
+#dj-critique-actions {
+    input {
+        cursor: pointer;
+        height: 28px;
+    }
+} 
+#dj-critique-submit {
+    float: left;
+}
+#dj-critique-cancel {
+    float: right;
+}
+
+/**
+ * Utilities
+ */
+
+ /* Clearfix */
+.dj-critique-hidden {
+    display: none !important;
+}
+.dj-critique-clearfix {
+    &:before {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}

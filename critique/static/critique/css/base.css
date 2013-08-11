@@ -1,0 +1,155 @@
+/* line 3, ../sass/base.scss */
+#dj-critique {
+  margin: 0;
+  padding: 0;
+  /* Critique should always appear on top of site content */
+  z-index: 1000;
+  position: relative;
+}
+
+/* line 12, ../sass/base.scss */
+#dj-critique,
+#dj-critique input,
+#dj-critique textarea {
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 20px;
+}
+
+/* line 17, ../sass/base.scss */
+#dj-critique-wrapper {
+  margin: 0 auto;
+  width: 98%;
+}
+@media only screen and (min-width: 480px) {
+  /* line 17, ../sass/base.scss */
+  #dj-critique-wrapper {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 767px) {
+  /* line 17, ../sass/base.scss */
+  #dj-critique-wrapper {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 960px) {
+  /* line 17, ../sass/base.scss */
+  #dj-critique-wrapper {
+    width: 60%;
+  }
+}
+
+/* line 31, ../sass/base.scss */
+#dj-critique-prompt {
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+}
+
+/* line 37, ../sass/base.scss */
+#dj-critique-create {
+  margin: 0 0.76923em;
+}
+/* line 39, ../sass/base.scss */
+#dj-critique-create ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 42, ../sass/base.scss */
+#dj-critique-create ul li {
+  list-style: none;
+  margin: 0 0 0.76923em 0;
+}
+
+/* line 50, ../sass/base.scss */
+#dj-critique-feedback,
+#dj-critique-create input,
+#dj-critique-create textarea {
+  -webkit-border-radius: 0.30769em;
+  -moz-border-radius: 0.30769em;
+  -ms-border-radius: 0.30769em;
+  -o-border-radius: 0.30769em;
+  border-radius: 0.30769em;
+}
+
+/* line 54, ../sass/base.scss */
+#dj-critique-create input[type=text],
+#dj-critique-create textarea {
+  padding: 0.38462em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 58, ../sass/base.scss */
+#dj-critique-create textarea {
+  resize: none;
+}
+
+/* line 61, ../sass/base.scss */
+#dj-critique-email {
+  height: 28px;
+  width: 100%;
+}
+
+/* line 65, ../sass/base.scss */
+#dj-critique-message {
+  height: 88px;
+  width: 100%;
+}
+
+/* line 69, ../sass/base.scss */
+#dj-critique-feedback {
+  display: none;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+/* line 78, ../sass/base.scss */
+#dj-critique-feedback p {
+  line-height: 2em;
+  margin: 0;
+}
+
+/* line 84, ../sass/base.scss */
+#dj-critique-actions input {
+  cursor: pointer;
+  height: 28px;
+}
+
+/* line 89, ../sass/base.scss */
+#dj-critique-submit {
+  float: left;
+}
+
+/* line 92, ../sass/base.scss */
+#dj-critique-cancel {
+  float: right;
+}
+
+/**
+ * Utilities
+ */
+/* Clearfix */
+/* line 101, ../sass/base.scss */
+.dj-critique-hidden {
+  display: none !important;
+}
+
+/* line 105, ../sass/base.scss */
+.dj-critique-clearfix:before {
+  content: " ";
+  display: table;
+}
+/* line 109, ../sass/base.scss */
+.dj-critique-clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
