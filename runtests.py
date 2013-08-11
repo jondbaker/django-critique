@@ -20,6 +20,7 @@ if not settings.configured:
             "critique.middleware.CritiqueMiddleware",),
         ROOT_URLCONF="tests.urls",
         STATIC_URL="/static/",
+        TEMPLATE_DIRS=(os.path.join(PROJECT_ROOT, "tests", "templates"))
     )
 
 

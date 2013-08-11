@@ -1,0 +1,21 @@
+<div id="dj-critique">
+    <div id="dj-critique-wrapper">
+        <div id="dj-critique-prompt">{{ prompt_text }}</div>
+        <form action="{% url 'critique_create' %}" id="dj-critique-create" method="post" style="display: none;">
+            <ul>
+                <li>{{ form.email }}</li>
+                <li>{{ form.message }}</li>
+                <li><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/></li> 
+                <li style="margin-bottom: 0; padding-bottom: 10px; position: relative;">
+                    <div id="dj-critique-feedback">
+                        <p></p>
+                    </div>
+                    <div id="dj-critique-actions" class="dj-critique-clearfix">
+                        <input id="dj-critique-submit" type="submit" value="{{ submit_text }}" />
+                        <input id="dj-critique-cancel" type="submit" value="{{ cancel_text }}" />
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
