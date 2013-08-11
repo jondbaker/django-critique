@@ -125,12 +125,37 @@ class ProcessResponse(CritiqueTestCase):
 #        self.assertTrue(self.was_injected(response.content))
 
 
-class InjectCss(CritiqueTestCase):
+class InjectCSS(CritiqueTestCase):
     def test_index_not_found(self):
         self.critique.is_active = True
         self.assertRaises(
-            Exception, self.critique._inject_css, "<html></html>")
+            ValueError, self.critique._inject_css, "<html></html>")
 
     def test_index_ok(self):
         self.critique.is_active = True
         self.critique._inject_css("<html><head></head></html>")
+
+#    def test_template_ok(self):
+#        pass
+
+
+class InjectHTML(CritiqueTestCase):
+    def test_index_not_found(self):
+        self.critique.is_active = True
+        self.assertRaises(
+            ValueError, self.critique._inject_html, "<html></html>", Request())
+
+    def test_index_ok(self):
+        self.critique.is_active = True
+        self.critique._inject_html("<body></body>", Request())
+
+
+class RenderForm(CritiqueTestCase):
+    def test_initial_data(self):
+        self.critique.is_active = True
+        content = self.critique._render_form(Request())
+        content.index('value="Email"')
+        content.index('Message</textarea>')
+
+#    def test_template_ok(self):
+#        pass

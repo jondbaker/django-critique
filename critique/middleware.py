@@ -2,8 +2,11 @@ import logging
 import re
 
 from django.conf import settings
+from django.middleware import csrf
 from django.template import loader, Context
 from django.utils.translation import ugettext_lazy as _
+
+from .forms import CritiqueForm
 
 
 class CritiqueMiddleware(object):
@@ -54,16 +57,60 @@ class CritiqueMiddleware(object):
     def _inject_css(self, content):
         """Injects CSS markup
 
+        :param request: HTTP response content
+        :request type: string
+
         :returns: HTTP response content
         :rtype: string
         """
         target = "</head>"
-        index = content.lower().rindex(target)
+        index = content.lower().index(target)
         template = loader.get_template("critique/_css.html")
         markup = template.render(Context({
             "static_url": self.static_url,
             "theme": self.settings["theme"]}))
         return content[:index] + markup + content[index:]
+
+    def _inject_html(self, content, request):
+        """Injects HTML markup
+
+        :param request: HTTP response content
+        :request type: string
+        :param request: HTTP request
+        :request type: object
+
+        :returns: HTTP response content
+        :rtype: string
+        """
+        target = "<body>"
+        index = content.lower().index(target)
+        form = self._render_form(request)
+        return content[:index + len(target)] + form + content[
+            index + len(target):]
+
+    def _render_form(self, request):
+        """Renders the form
+
+        :param request: HTTP request
+        :request type: object
+
+        :returns: HTML markup
+        :rtype: string
+        """
+        template = loader.get_template("critique/_form.html")
+        form = CritiqueForm(
+            auto_id="dj-critique-%s",
+            initial={
+                "email": _("Email"),
+                "message": _("Message")})
+        data = {
+            "cancel_text": self.settings["cancel_text"],
+            "csrf_token": csrf.get_token(request),
+            "form": form,
+            "prompt_text": self.settings["prompt_text"],
+            "submit_text": self.settings["submit_text"]}
+        ctx = Context(data)
+        return template.render(ctx)
 
     def process_request(self, request):
         """Django middleware hook.
@@ -99,7 +146,7 @@ class CritiqueMiddleware(object):
         if self.is_active and response.status_code == 200:
             try:
                 content = self._inject_css(response.content)
-#                content = self._inject_html(content, request)
+                content = self._inject_html(content, request)
 #                content = self._inject_js(content)
             except Exception as e:
                 logging.debug("Exception: " + repr(e))
