@@ -15,20 +15,21 @@ class Request(object):
 
 
 class Response(object):
-    def __init__(self, status_code=200):
+    def __init__(
+            self, status_code=200,
+            content="<html><head></head><body></body></html>"):
         """Happy-path settings"""
         self.status_code = status_code
-        self.content = ""
+        self.content = content
 
 
 class CritiqueTestCase(TestCase):
     def setUp(self):
         self.critique = CritiqueMiddleware()
 
-    def was_injected(self, response):
-        response = response.lower()
+    def assertCritiqueInjected(self, response):
         try:
-            response.index('<div id="dj-critique">')
+            response.lower().index('<div id="dj-critique">')
         except ValueError:
             return False
         else:
@@ -96,33 +97,37 @@ class ProcessResponse(CritiqueTestCase):
         request = Request()
         request.method = "POST"
         response = self.critique.process_response(request, Response())
-        self.assertFalse(self.was_injected(response.content))
+        self.assertFalse(self.assertCritiqueInjected(response.content))
 
-#    def test_is_active_ok(self):
-#        self.critique.is_active = True
-#        response = self.critique.process_response(Request(), Response())
-#        self.assertTrue(self.was_injected(response.content))
+    def test_is_active_ok(self):
+        self.critique.is_active = True
+        response = self.critique.process_response(Request(), Response())
+        self.assertTrue(self.assertCritiqueInjected(response.content))
 
     def test_response_code_invalid(self):
         self.critique.is_active = True
         response = Response(status_code=302)
         response = self.critique.process_response(Request(), response)
-        self.assertFalse(self.was_injected(response.content))
+        self.assertFalse(self.assertCritiqueInjected(response.content))
 
-#    def test_response_code_ok(self):
-#        self.critique.is_active = True
-#        response = self.critique.process_response(Request(), Response())
-#        self.assertTrue(self.was_injected(response.content))
+    def test_response_code_ok(self):
+        self.critique.is_active = True
+        response = self.critique.process_response(Request(), Response())
+        self.assertTrue(self.assertCritiqueInjected(response.content))
 
-#    def test_injection_invalid(self):
-#        self.critique.is_active = True
-#        self.assertRaises(
-#            Exception, self.critique.process_response, Request(), Response())
+    def test_response_markup_invalid(self):
+        self.critique.is_active = True
+        content = "<html>"
+        response = Response()
+        response.content = content
+        response = self.critique.process_response(Request(), response)
+        self.assertEqual(content, response.content)
 
-#    def test_injection_ok(self):
-#        self.critique.is_active = True
-#        response = self.critique.process_response(Request(), Response())
-#        self.assertTrue(self.was_injected(response.content))
+    def test_response_markup_ok(self):
+        self.critique.is_active = True
+        response = Response()
+        response = self.critique.process_response(Request(), response)
+        self.assertTrue(self.assertCritiqueInjected(response.content))
 
 
 class InjectCSS(CritiqueTestCase):
@@ -134,9 +139,6 @@ class InjectCSS(CritiqueTestCase):
     def test_index_ok(self):
         self.critique.is_active = True
         self.critique._inject_css("<html><head></head></html>")
-
-#    def test_template_ok(self):
-#        pass
 
 
 class InjectHTML(CritiqueTestCase):
@@ -150,12 +152,20 @@ class InjectHTML(CritiqueTestCase):
         self.critique._inject_html("<body></body>", Request())
 
 
+class InjectJS(CritiqueTestCase):
+    def test_index_not_found(self):
+        self.critique.is_active = True
+        self.assertRaises(
+            ValueError, self.critique._inject_js, "<html></html>")
+
+    def test_index_ok(self):
+        self.critique.is_active = True
+        self.critique._inject_js("<body></body>")
+
+
 class RenderForm(CritiqueTestCase):
     def test_initial_data(self):
         self.critique.is_active = True
         content = self.critique._render_form(Request())
         content.index('value="Email"')
         content.index('Message</textarea>')
-
-#    def test_template_ok(self):
-#        pass

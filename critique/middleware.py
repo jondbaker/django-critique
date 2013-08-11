@@ -63,8 +63,8 @@ class CritiqueMiddleware(object):
         :returns: HTTP response content
         :rtype: string
         """
-        target = "</head>"
-        index = content.lower().index(target)
+#        target = "</head>"
+        index = content.lower().index("</head>")
         template = loader.get_template("critique/_css.html")
         markup = template.render(Context({
             "static_url": self.static_url,
@@ -87,6 +87,13 @@ class CritiqueMiddleware(object):
         form = self._render_form(request)
         return content[:index + len(target)] + form + content[
             index + len(target):]
+
+    def _inject_js(self, content):
+        target = "</body>"
+        index = content.lower().index(target)
+        template = loader.get_template("critique/_js.html")
+        markup = template.render(Context({"static_url": self.static_url}))
+        return content[:index] + markup + target + content[index + len(target):]
 
     def _render_form(self, request):
         """Renders the form
@@ -147,7 +154,7 @@ class CritiqueMiddleware(object):
             try:
                 content = self._inject_css(response.content)
                 content = self._inject_html(content, request)
-#                content = self._inject_js(content)
+                content = self._inject_js(content)
             except Exception as e:
                 logging.debug("Exception: " + repr(e))
             else:
