@@ -94,7 +94,12 @@ class CritiqueMiddleware(object):
         target = "</body>"
         index = content.lower().index(target)
         template = loader.get_template("critique/_js.html")
-        markup = template.render(Context({"static_url": self.static_url}))
+        markup = template.render(Context({
+            "error_text": self.settings["error_text"],
+            "invalid_text": self.settings["invalid_text"],
+            "static_url": self.static_url,
+            "success_text": self.settings["success_text"],
+        }))
         return content[:index] + markup + target + content[index + len(target):]
 
     def _render_form(self, request):
