@@ -16,11 +16,14 @@ class CritiqueMiddleware(object):
     """
     default_settings = {
         "cancel_text": _("Cancel"),
+        "error_text": _("Error!"),
+        "invalid_text": _("Invalid Submission!"),
         "prompt_text": _("Critique this page"),
         "submit_text": _("Submit"),
+        "success_text": _("Success!"),
         "theme": "light"}
     is_active = None
-    mime_types = ["text/html"]
+    mime_types = ["text/html", "text/plain"]  # tests need text/plain?
     static_url = getattr(settings, "STATIC_URL", "/")
     themes = ["dark", "light"]
 
@@ -63,7 +66,6 @@ class CritiqueMiddleware(object):
         :returns: HTTP response content
         :rtype: string
         """
-#        target = "</head>"
         index = content.lower().index("</head>")
         template = loader.get_template("critique/_css.html")
         markup = template.render(Context({
