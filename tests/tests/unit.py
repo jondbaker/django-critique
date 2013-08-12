@@ -41,8 +41,11 @@ class CritiqueTestCase(TestCase):
 #        setattr(settings, "CRITIQUE", self.critique.default_settings)
         setattr(settings, "CRITIQUE", {
             "cancel_text": "Cancel",
+            "error_text": "Error!",
+            "invalid_text": "Invalid Submission!",
             "prompt_text": "Critique this page",
             "submit_text": "Submit",
+            "success_text": "Success!",
             "theme": "light"})
 
 
