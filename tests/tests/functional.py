@@ -47,101 +47,111 @@ class UI(SeleniumTestCase):
     def setUp(self):
         self.wd = CustomWebDriver()
         self.open()
+        self.cancel = self.wd.find_element_by_id("dj-critique-cancel")
+        self.email = self.wd.find_element_by_id("dj-critique-email")
+        self.feedback = self.wd.find_element_by_id("dj-critique-feedback")
+        self.message = self.wd.find_element_by_id("dj-critique-message")
+        self.panel = self.wd.find_element_by_id("dj-critique-create")
+        self.prompt = self.wd.find_element_by_id("dj-critique-prompt")
+        self.submit = self.wd.find_element_by_id("dj-critique-submit")
 
     def tearDown(self):
         self.wd.quit()
 
     def _open_panel(self):
-        self.wd.find_element_by_id("dj-critique-prompt").click()
-        self.assertTrue(
-            self.wd.find_element_by_id("dj-critique-create").is_displayed())
+        self.prompt.click()
+        self.assertTrue(self.panel.is_displayed())
 
     def test_form_invisible(self):
-        self.assertFalse(
-            self.wd.find_element_by_id("dj-critique-create").is_displayed())
+        self.assertFalse(self.panel.is_displayed())
 
     def test_form_visible(self):
         self._open_panel()
 
     def test_click_cancel(self):
         self._open_panel()
+        sleep(.25)
+        self.cancel.click()
         sleep(.5)
-        self.wd.wait_for_css("#dj-critique-cancel").click()
-        sleep(.5)
-        self.assertFalse(
-            self.wd.find_element_by_id("dj-critique-create").is_displayed())
+        self.assertFalse(self.panel.is_displayed())
 
     def test_input_email_empty(self):
         self._open_panel()
-        self.wd.find_element_by_id("dj-critique-email").send_keys("")
+        self.email.send_keys("")
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-submit").click()
+        self.submit.click()
         sleep(.5)
-        self.assertEqual(
-            self.wd.find_element_by_id("dj-critique-feedback").text,
-            "Invalid Submission!")
-        # @todo check for error class on field
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_invalid(self):
         self._open_panel()
-        self.wd.find_element_by_id("dj-critique-email").send_keys("jdb")
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-submit").click()
+        self.email.send_keys("jdb")
+        sleep(.25)
+        self.submit.click()
         sleep(.5)
-        self.assertEqual(
-            self.wd.find_element_by_id("dj-critique-feedback").text,
-            "Invalid Submission!")
-        # @todo check for error class on field
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_message_empty(self):
         self._open_panel()
-        self.wd.find_element_by_id("dj-critique-email").send_keys("jdb")
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-submit").click()
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("")
+        sleep(.25)
+        self.submit.click()
         sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
         self.assertEqual(
-            self.wd.find_element_by_id("dj-critique-feedback").text,
-            "Invalid Submission!")
-        # @todo check for error class on field
+            self.message.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_invalid_message_empty(self):
         self._open_panel()
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-message").send_keys("")
+        self.email.send_keys("test")
+        self.message.send_keys("")
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-submit").click()
+        self.submit.click()
         sleep(.25)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
         self.assertEqual(
-            self.wd.find_element_by_id("dj-critique-feedback").text,
-            "Invalid Submission!")
+            self.message.get_attribute("class"), "dj-critique-error")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_and_message_empty(self):
         self._open_panel()
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-email").send_keys("")
-        self.wd.find_element_by_id("dj-critique-message").send_keys("")
+        self.email.send_keys("")
+        self.message.send_keys("")
         sleep(.25)
-        self.wd.find_element_by_id("dj-critique-submit").click()
+        self.submit.click()
         sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
         self.assertEqual(
-            self.wd.find_element_by_id("dj-critique-feedback").text,
-            "Invalid Submission!")
+            self.message.get_attribute("class"), "dj-critique-error")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
-#    def test_input_ok(self):
-#        self._open_panel()
-#        sleep(.25)
-#        self.wd.find_element_by_id("dj-critique-email").send_keys(
-#            "test@test.com")
-#        self.wd.find_element_by_id("dj-critique-message").send_keys(
-#            "Test message")
-#        sleep(.25)
-#        self.wd.find_element_by_id("dj-critique-submit").click()
-#        sleep(.25)
-#        print self.wd.find_element_by_id("dj-critique-feedback").text
-#        sleep(10)
-#        self.assertEqual(
-#            self.wd.find_element_by_id("dj-critique-feedback").text,
-#            "Invalid Submission!")
-#
-#    def test_persists_email(self):
-#        pass
+    def test_input_ok(self):
+        self._open_panel()
+        sleep(.25)
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("Test message")
+        sleep(.25)
+        self.submit.click()
+        sleep(.25)
+        self.assertEqual(self.feedback.text, "Success!")
+
+    def test_persists_email(self):
+        self._open_panel()
+        sleep(.25)
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("Test message")
+        sleep(.25)
+        self.submit.click()
+        sleep(2)
+        self.assertEqual(self.feedback.text, "Success!")
+        sleep(3)
+        self._open_panel()
+        sleep(.25)
+        self.assertEqual(self.email.get_attribute("value"), "test@test.com")
