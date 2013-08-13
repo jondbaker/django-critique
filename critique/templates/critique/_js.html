@@ -18,7 +18,7 @@ var $wrapper = $('div#dj-critique'),
     invalidText = "{{ invalid_text }}",
     successText = "{{ success_text }}",
     config = {
-        delay: 3000,
+        delay: 2000,
         rate: 200
     },
     fields = {};
@@ -109,9 +109,9 @@ function handleSubmit($form) {
             $('input#dj-critique-email', $form).val())
 
         $.ajax({
-            data: $form.serialize() + '&url=' + window.location.pathname,
+            data: $form.serialize(),
             type: 'POST',
-            url: '/critique/create/',
+            url: "{% url 'critique_create' %}",
             success: function(response) {
                 if (response == 'OK') {
                     toggleHighlightErrors(fields, false);
