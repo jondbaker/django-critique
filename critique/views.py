@@ -5,7 +5,7 @@ from .forms import CritiqueForm
 
 def create(request):
     """Validates input and then creates a Critique record."""
-    if request.method != "POST" and not request.is_ajax():
+    if request.method != "POST" or not request.is_ajax():
         raise Http404()
 
     form = CritiqueForm(request.POST)

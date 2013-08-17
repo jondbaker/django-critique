@@ -153,5 +153,5 @@ class UI(SeleniumTestCase):
         self.assertEqual(self.feedback.text, "Success!")
         sleep(3)
         self._open_panel()
-        sleep(.25)
+        sleep(.5)
         self.assertEqual(self.email.get_attribute("value"), "test@test.com")
