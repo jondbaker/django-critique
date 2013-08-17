@@ -1,4 +1,4 @@
-<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"><\/script>')</script><script>window.jQuery || document.write('<script src="{{ static_url }}critique/js/jquery.min.js"><\/script>')</script><script src="{{ static_url }}critique/js/lib.js"></script>
+<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"><\/script>')</script><script>window.jQuery || document.write('<script src="{{ static_url }}critique/js/jquery.min.js"><\/script>')</script>
 <script>
 (function($) {
 
@@ -66,11 +66,11 @@ function bindHandlers() {
 function configureFields() {
     fields.email = new Field(
         $('input#dj-critique-email', $form),
-        djCritique.utils.validateEmail);
+        validateEmail);
     fields.message = new Field(
         $('textarea#dj-critique-message', $form), validateMessage);
 
-    fields.email.$elem.val(djCritique.cookie.get(
+    fields.email.$elem.val(getCookie(
         'dj-critique-author', 'Email'));
 }
 
@@ -79,6 +79,20 @@ function displayFeedback(message, callback) {
             config.rate, function() {
         if (callback) { callback(); }
     });
+}
+
+function getCookie(key, defaultValue) {
+    var cookies = document.cookie.split(';');
+
+    for (var i = 0; i < cookies.length; i++) {
+        var foundKey = cookies[i].substr(
+            0, cookies[i].indexOf('=')).replace(/\s/g, '');
+
+        if (key === foundKey) {
+            return cookies[i].substr(cookies[i].indexOf('=')+1);
+        }
+    }
+    return defaultValue;
 }
 
 function handleField(e, field) {
@@ -105,7 +119,7 @@ function handleSubmit($form) {
         toggleHighlightErrors(errors, true);
         displayFeedback(invalidText, afterError); 
     } else {
-        djCritique.cookie.set('dj-critique-author',
+        setCookie('dj-critique-author',
             $('input#dj-critique-email', $form).val())
 
         $.ajax({
@@ -132,14 +146,25 @@ function hideForm(callback) {
     });
 }
 
+function resetMessage() {
+    fields.message.$elem.val(fields.message.defaultValue);
+}
+
+function setCookie(key, value) {
+    document.cookie = key + '=' + value + ';';
+}
+
 function toggleHighlightErrors(f, flag) {
     for (var i in f) {
         f[i].$elem.toggleClass('dj-critique-error', flag);
     }
 }
 
-function resetMessage() {
-    fields.message.$elem.val(fields.message.defaultValue);
+function validateEmail(email) {
+    // @see http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+
 }
 
 function validateFields() {
