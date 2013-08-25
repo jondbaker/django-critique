@@ -1,6 +1,7 @@
 ===============
 django-critique
 ===============
+.. image:: https://travis-ci.org/jondbaker/django-critique.png
 
 A responsive, page-by-page critique application for Django.
 
