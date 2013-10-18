@@ -84,11 +84,14 @@ class CritiqueMiddleware(object):
         :returns: HTTP response content
         :rtype: string
         """
-        target = "<body>"
-        index = content.lower().index(target)
+        content_lower = content.lower()
+        m = re.search("(<body[^>]*>)", content_lower)
+        body_elem = m.group(1)
+        target = "<body"
+        index = content_lower.index(target)
         form = self._render_form(request)
-        return content[:index + len(target)] + form + content[
-            index + len(target):]
+        return content[:index + len(body_elem)] + form + content[
+            index + len(body_elem):]
 
     def _inject_js(self, content):
         target = "</body>"

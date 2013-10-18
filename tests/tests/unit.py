@@ -183,9 +183,13 @@ class InjectHTML(CritiqueTestCase):
     def test_index_not_found(self):
         self.critique.is_active = True
         self.assertRaises(
-            ValueError, self.critique._inject_html, "<html></html>", Request())
+            AttributeError, self.critique._inject_html, "<html></html>", Request())
 
-    def test_index_ok(self):
+    def test_index_ok_body_attr(self):
+        self.critique.is_active = True
+        self.critique._inject_html('<body class="test"></body>', Request())
+
+    def test_index_ok_body_clean(self):
         self.critique.is_active = True
         self.critique._inject_html("<body></body>", Request())
 
