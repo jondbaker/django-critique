@@ -19,6 +19,7 @@ $l-fontcolor: #151515;
 $l-errorcolor: #b9543c;
 $l-feedbackborder: #a14833;
 $l-feedbackcolor: #ffffff;
+$l-bordercolor: #c5c5c5;
 
 /// Dark Theme
 $d-primary: #2ea79f;
@@ -28,6 +29,7 @@ $d-fontcolor: #151515;
 $d-errorcolor: #b9543c;
 $d-feedbackborder: #a14833;
 $d-feedbackcolor: #ffffff;
+$d-bordercolor: #454545;
 
 
 //
@@ -83,7 +85,7 @@ $arial: Arial, Helvetica, sans-serif;
 //
 
 // Convert pixels to ems
-@function pxtoem($target, $context) {
+@function pxtoem($target, $context:$base-font-size) {
   @return ($target/$context)+0em;
 }
 

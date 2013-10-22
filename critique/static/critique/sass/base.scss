@@ -48,12 +48,12 @@
 #dj-critique-feedback,
 #dj-critique-create input,
 #dj-critique-create textarea {
-    @include border-radius(pxtoem(4px, $base-font-size));
-    margin: 0;
+    @include border-radius(pxtoem(5px, $base-font-size));
 }
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
     padding: pxtoem(5px, $base-font-size);
+    margin: 0;
     @include box-sizing(border-box);
 }
 #dj-critique-create textarea {
@@ -69,7 +69,7 @@
 }
 #dj-critique-feedback {
     display: none;
-    height: 28px;
+    height: 30px;
     left: 0;
     position: absolute;
     text-align: center;
@@ -84,14 +84,29 @@
 #dj-critique-actions {
     input {
         cursor: pointer;
-        height: 28px;
+        height: 30px;
+        text-transform: none;
+        width: 49%;
+        @include breakpoint(small) {
+            width: auto;
+            padding: 0 pxtoem(50px);
+        }
+        &:focus {
+            outline: none;
+        }
     }
 } 
 #dj-critique-submit {
     float: left;
+    @include breakpoint(small) {
+        margin: 0 pxtoem(10px) 0 0;
+    }
 }
 #dj-critique-cancel {
     float: right;
+    @include breakpoint(small) {
+        float: none;
+    }
 }
 
 /**

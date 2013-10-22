@@ -3,7 +3,7 @@
 #dj-critique {
     background: $l-bgcolor;
     color: $l-fontcolor;
-    @include box-shadow(rgba(0, 0, 0, 1) 0px -12px 18px 13px);
+    border: 1px solid $l-bordercolor;
 }
 #dj-critique-prompt {
 	color: $l-primary;
@@ -15,7 +15,7 @@
 }
 #dj-critique-create input,
 #dj-critique-create textarea {
-    border: 1px solid #c5c5c5;
+    border: 1px solid $l-bordercolor;
 }
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
@@ -42,14 +42,16 @@
         background: #d8d8d8;
     }
 }
+
+/* Feedback */
 #dj-critique-create .dj-critique-error {
-    border-color: $l-errorcolor;
+    border: 1px solid $l-errorcolor;
 }
 #dj-critique-feedback {
-	background: $l-errorcolor;
+    background: $l-errorcolor;
     border: 1px solid $l-feedbackborder;
     p {
-    	color: $l-feedbackcolor;
-    	font-weight: bold;
+        color: $l-feedbackcolor;
+        font-weight: bold;
     }
 }

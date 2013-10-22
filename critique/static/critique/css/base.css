@@ -67,18 +67,18 @@
 #dj-critique-feedback,
 #dj-critique-create input,
 #dj-critique-create textarea {
-  -webkit-border-radius: 0.30769em;
-  -moz-border-radius: 0.30769em;
-  -ms-border-radius: 0.30769em;
-  -o-border-radius: 0.30769em;
-  border-radius: 0.30769em;
-  margin: 0;
+  -webkit-border-radius: 0.38462em;
+  -moz-border-radius: 0.38462em;
+  -ms-border-radius: 0.38462em;
+  -o-border-radius: 0.38462em;
+  border-radius: 0.38462em;
 }
 
-/* line 55, ../sass/base.scss */
+/* line 54, ../sass/base.scss */
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
   padding: 0.38462em;
+  margin: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -104,7 +104,7 @@
 /* line 70, ../sass/base.scss */
 #dj-critique-feedback {
   display: none;
-  height: 28px;
+  height: 30px;
   left: 0;
   position: absolute;
   text-align: center;
@@ -121,34 +121,59 @@
 /* line 85, ../sass/base.scss */
 #dj-critique-actions input {
   cursor: pointer;
-  height: 28px;
+  height: 30px;
+  text-transform: none;
+  width: 49%;
+}
+@media only screen and (min-width: 480px) {
+  /* line 85, ../sass/base.scss */
+  #dj-critique-actions input {
+    width: auto;
+    padding: 0 3.84615em;
+  }
+}
+/* line 94, ../sass/base.scss */
+#dj-critique-actions input:focus {
+  outline: none;
 }
 
-/* line 90, ../sass/base.scss */
+/* line 99, ../sass/base.scss */
 #dj-critique-submit {
   float: left;
 }
+@media only screen and (min-width: 480px) {
+  /* line 99, ../sass/base.scss */
+  #dj-critique-submit {
+    margin: 0 0.76923em 0 0;
+  }
+}
 
-/* line 93, ../sass/base.scss */
+/* line 105, ../sass/base.scss */
 #dj-critique-cancel {
   float: right;
+}
+@media only screen and (min-width: 480px) {
+  /* line 105, ../sass/base.scss */
+  #dj-critique-cancel {
+    float: none;
+  }
 }
 
 /**
  * Utilities
  */
 /* Clearfix */
-/* line 102, ../sass/base.scss */
+/* line 117, ../sass/base.scss */
 .dj-critique-hidden {
   display: none !important;
 }
 
-/* line 106, ../sass/base.scss */
+/* line 121, ../sass/base.scss */
 .dj-critique-clearfix:before {
   content: " ";
   display: table;
 }
-/* line 110, ../sass/base.scss */
+/* line 125, ../sass/base.scss */
 .dj-critique-clearfix:after {
   content: " ";
   display: table;

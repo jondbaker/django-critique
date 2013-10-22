@@ -2,9 +2,7 @@
 #dj-critique {
   background: #e5e5e5;
   color: #151515;
-  -webkit-box-shadow: black 0px -12px 18px 13px;
-  -moz-box-shadow: black 0px -12px 18px 13px;
-  box-shadow: black 0px -12px 18px 13px;
+  border: 1px solid #c5c5c5;
 }
 
 /* line 8, ../sass/light.scss */
@@ -51,17 +49,18 @@
   background: #d8d8d8;
 }
 
-/* line 45, ../sass/light.scss */
+/* Feedback */
+/* line 47, ../sass/light.scss */
 #dj-critique-create .dj-critique-error {
-  border-color: #b9543c;
+  border: 1px solid #b9543c;
 }
 
-/* line 48, ../sass/light.scss */
+/* line 50, ../sass/light.scss */
 #dj-critique-feedback {
   background: #b9543c;
   border: 1px solid #a14833;
 }
-/* line 51, ../sass/light.scss */
+/* line 53, ../sass/light.scss */
 #dj-critique-feedback p {
   color: white;
   font-weight: bold;
