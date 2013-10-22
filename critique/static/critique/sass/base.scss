@@ -49,6 +49,7 @@
 #dj-critique-create input,
 #dj-critique-create textarea {
     @include border-radius(pxtoem(4px, $base-font-size));
+    margin: 0;
 }
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
