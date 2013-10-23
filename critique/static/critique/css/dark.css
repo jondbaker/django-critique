@@ -45,17 +45,18 @@
 }
 
 /* Feedback */
-/* line 48, ../sass/dark.scss */
-#dj-critique-create .dj-critique-error {
+/* line 49, ../sass/dark.scss */
+#dj-critique-create input[type=text].dj-critique-error,
+#dj-critique-create textarea.dj-critique-error {
   border: 1px solid #b9543c;
 }
 
-/* line 51, ../sass/dark.scss */
+/* line 52, ../sass/dark.scss */
 #dj-critique-feedback {
   background: #b9543c;
   border: 1px solid #a14833;
 }
-/* line 54, ../sass/dark.scss */
+/* line 55, ../sass/dark.scss */
 #dj-critique-feedback p {
   color: white;
   font-weight: bold;

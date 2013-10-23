@@ -45,7 +45,8 @@
 }
 
 /* Feedback */
-#dj-critique-create .dj-critique-error {
+#dj-critique-create input[type=text].dj-critique-error,
+#dj-critique-create textarea.dj-critique-error {
     border: 1px solid $l-errorcolor;
 }
 #dj-critique-feedback {
