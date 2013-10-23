@@ -1,3 +1,20 @@
+/**
+ * Django-Critique Light Theme
+ */
+
+/**
+ * Color Palette
+ *
+ * primary: #06736c;
+ * active: #055b55;
+ * bgcolor: #e5e5e5;
+ * fontcolor: #151515;
+ * errorcolor: #b9543c;
+ * feedbackborder: #a14833;
+ * feedbackcolor: #ffffff;
+ * bordercolor: #c5c5c5;
+ */
+
 #dj-critique {
   background: #e5e5e5;
   color: #151515;

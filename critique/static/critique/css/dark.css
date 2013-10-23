@@ -1,3 +1,20 @@
+/**
+ * Django-Critique Dark Theme
+ */
+
+/**
+ * Color Palette
+ *
+ * primary: #2ea79f;
+ * active: #28938c;
+ * bgcolor: #151515;
+ * fontcolor: #151515;
+ * errorcolor: #b9543c;
+ * feedbackborder: #a14833;
+ * feedbackcolor: #ffffff;
+ * bordercolor: #454545;
+ */
+
 #dj-critique {
   background: #151515;
   color: #151515;
