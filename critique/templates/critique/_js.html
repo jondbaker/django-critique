@@ -74,8 +74,9 @@ function configureFields() {
         'dj-critique-author', 'Email'));
 }
 
-function displayFeedback(message, callback) {
-    $feedback.find('p').text(message).parent().fadeIn(
+function displayFeedback(message, cls, callback) {
+    $feedback.removeClass();  // removes all classes
+    $feedback.find('p').text(message).parent().addClass(cls).fadeIn(
             config.rate, function() {
         if (callback) { callback(); }
     });
@@ -117,7 +118,7 @@ function handleSubmit($form) {
 
     if (errors.length > 0) {
         toggleHighlightErrors(errors, true);
-        displayFeedback(invalidText, afterError); 
+        displayFeedback(invalidText, "dj-critique-error", afterError); 
     } else {
         setCookie('dj-critique-author',
             $('input#dj-critique-email', $form).val())
@@ -129,9 +130,9 @@ function handleSubmit($form) {
             success: function(response) {
                 if (response == 'OK') {
                     toggleHighlightErrors(fields, false);
-                    displayFeedback(successText, afterSuccess); 
+                    displayFeedback(successText, "dj-critique-success", afterSuccess); 
                 } else {
-                    displayFeedback(errorText, afterError); 
+                    displayFeedback(errorText, "dj-critique-error", afterError); 
                 }
             }
         });
