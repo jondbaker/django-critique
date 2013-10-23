@@ -1,62 +1,51 @@
-/* line 3, ../sass/dark.scss */
 #dj-critique {
   background: #151515;
   color: #151515;
   border: 1px solid #454545;
 }
 
-/* line 8, ../sass/dark.scss */
 #dj-critique-prompt {
   color: #2ea79f;
 }
-/* line 12, ../sass/dark.scss */
 #dj-critique-prompt:hover, #dj-critique-prompt:active, #dj-critique-prompt:focus {
   color: #28938c;
 }
 
-/* line 21, ../sass/dark.scss */
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
   border: 1px solid #c5c5c5;
   color: #151515;
 }
 
-/* line 25, ../sass/dark.scss */
 #dj-critique-submit {
   background: #2ea79f;
   border: 1px solid #268c85;
   color: white;
   font-weight: bold;
 }
-/* line 32, ../sass/dark.scss */
 #dj-critique-submit:hover, #dj-critique-submit:active, #dj-critique-submit:focus {
   background: #28938c;
 }
 
-/* line 36, ../sass/dark.scss */
 #dj-critique-cancel {
   background: #151515;
   border: 1px solid #454545;
   color: #959595;
 }
-/* line 42, ../sass/dark.scss */
 #dj-critique-cancel:hover, #dj-critique-cancel:active, #dj-critique-cancel:focus {
   background: #2f2f2f;
 }
 
 /* Feedback */
-/* line 49, ../sass/dark.scss */
 #dj-critique-create input[type=text].dj-critique-error,
 #dj-critique-create textarea.dj-critique-error {
   border: 1px solid #b9543c;
 }
 
-/* line 52, ../sass/dark.scss */
 #dj-critique-feedback {
   background: #b9543c;
   border: 1px solid #a14833;
 }
-/* line 55, ../sass/dark.scss */
 #dj-critique-feedback p {
   color: white;
   font-weight: bold;

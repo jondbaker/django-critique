@@ -1,66 +1,54 @@
-/* line 3, ../sass/light.scss */
 #dj-critique {
   background: #e5e5e5;
   color: #151515;
   border: 1px solid #c5c5c5;
 }
 
-/* line 8, ../sass/light.scss */
 #dj-critique-prompt {
   color: #06736c;
 }
-/* line 12, ../sass/light.scss */
 #dj-critique-prompt:hover, #dj-critique-prompt:active, #dj-critique-prompt:focus {
   color: #055b55;
 }
 
-/* line 17, ../sass/light.scss */
 #dj-critique-create input,
 #dj-critique-create textarea {
   border: 1px solid #c5c5c5;
 }
 
-/* line 21, ../sass/light.scss */
 #dj-critique-create input[type=text],
 #dj-critique-create textarea {
   color: #757575;
 }
 
-/* line 24, ../sass/light.scss */
 #dj-critique-submit {
   background: #06736c;
   border: 1px solid #045853;
   color: white;
   font-weight: bold;
 }
-/* line 31, ../sass/light.scss */
 #dj-critique-submit:hover, #dj-critique-submit:active, #dj-critique-submit:focus {
   background: #055b55;
 }
 
-/* line 35, ../sass/light.scss */
 #dj-critique-cancel {
   background: #f2f2f2;
   border: 1px solid #757575;
   color: #757575;
 }
-/* line 41, ../sass/light.scss */
 #dj-critique-cancel:hover, #dj-critique-cancel:active, #dj-critique-cancel:focus {
   background: #d8d8d8;
 }
 
 /* Feedback */
-/* line 47, ../sass/light.scss */
 #dj-critique-create .dj-critique-error {
   border: 1px solid #b9543c;
 }
 
-/* line 50, ../sass/light.scss */
 #dj-critique-feedback {
   background: #b9543c;
   border: 1px solid #a14833;
 }
-/* line 53, ../sass/light.scss */
 #dj-critique-feedback p {
   color: white;
   font-weight: bold;
