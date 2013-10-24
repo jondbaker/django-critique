@@ -58,12 +58,15 @@
 #dj-critique-create textarea.dj-critique-error {
   border: 1px solid #b9543c;
 }
-
-#dj-critique-feedback {
-  background: #b9543c;
-  border: 1px solid #a14833;
-}
 #dj-critique-feedback p {
   color: white;
   font-weight: bold;
+}
+div.dj-critique-success {
+  background: #2ea79f;
+  border: 1px solid #268c85;
+}
+div.dj-critique-error {
+  background: #b9543c;
+  border: 1px solid #a14833;
 }
