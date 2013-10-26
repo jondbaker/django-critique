@@ -38,6 +38,11 @@ Requirements
 * Python 2.6 or 2.7
 * Django 1.5+
 
+The application works as expected with Django 1.4.x, but because of the updated
+url tag in Django 1.5.0+, the two instances of {% url 'critique_create' %} in
+critique/templates/critique/_form.html and critique/templates/critique/_js.html
+need to have the single quotes removed.
+
 Configuration
 =============
 Critique has a handful of settings that can be set in ``settings.py``::
