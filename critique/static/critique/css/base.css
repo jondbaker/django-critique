@@ -134,26 +134,29 @@
     float: none;
   }
 }
-
-@media screen and (min-width: 767px) {
-#dj-critique {
-  position: fixed;
-  top: 100px;
+/* Desktop styles */
+/*@media screen and (min-width: 767px) {*/
+/*#dj-critique {*/
+  /*position: fixed;*/
+  /*top: 100px;*/
   /*right: -250px;*/
-  right: 0;
-}
+  /*right: 0;*/
+/*}*/
 
-  #dj-critique-prompt {
-    width: 50px;
-    float: left;
-  }
+  /*#dj-critique-prompt {*/
+    /*width: 50px;*/
+    /*float: left;*/
+    /*transform:rotate(90deg);*/
+    /*-ms-transform:rotate(90deg); */ /* IE 9 */
+    /*-webkit-transform:rotate(90deg); */ /* Safari and Chrome */
+  /*}*/
 
-  #dj-critique-create {
+  /*#dj-critique-create {
     display: block;
     width: 210px;
     float: left;
-  }
-}
+  }*/
+/*}*/
 
 /**
  * Utilities
