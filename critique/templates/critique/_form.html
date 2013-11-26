@@ -1,7 +1,7 @@
 <div id="dj-critique">
     <div id="dj-critique-wrapper">
         <div id="dj-critique-prompt">{{ prompt_text }}</div>
-        <form action="{% url 'critique_create' %}" id="dj-critique-create" method="post" style="display: none;">
+        <form action="{% url 'critique_create' %}" id="dj-critique-create" method="post">
             <ul>
                 <li>{{ form.email }}</li>
                 <li>{{ form.message }}</li>

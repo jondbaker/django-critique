@@ -59,7 +59,7 @@ function bindHandlers() {
     })
 
     $prompt.on('click', function() {
-        $form.slideToggle();
+        toggleDisplay();
     });
 }
 
@@ -153,6 +153,22 @@ function resetMessage() {
 
 function setCookie(key, value) {
     document.cookie = key + '=' + value + ';';
+}
+
+function toggleDisplay() {
+    if (window.innerWidth < 768) {  // handheld
+        $form.slideToggle();
+    } else {  // desktop
+        var right = -Math.abs($form.outerWidth(true));
+
+        if (parseInt($wrapper.css("right")) < 0) { 
+            right = 0;
+        }
+
+        $wrapper.animate({
+            right: right 
+        }, 500);
+    }
 }
 
 function toggleHighlightErrors(f, flag) {

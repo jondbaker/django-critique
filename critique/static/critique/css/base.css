@@ -17,21 +17,7 @@
 #dj-critique-wrapper {
   margin: 0 auto;
   width: 98%;
-}
-@media only screen and (min-width: 480px) {
-  #dj-critique-wrapper {
-    width: 90%;
-  }
-}
-@media only screen and (min-width: 767px) {
-  #dj-critique-wrapper {
-    width: 70%;
-  }
-}
-@media only screen and (min-width: 960px) {
-  #dj-critique-wrapper {
-    width: 60%;
-  }
+  overflow: hidden;
 }
 
 #dj-critique-prompt {
@@ -43,11 +29,14 @@
 
 #dj-critique-create {
   margin: 0 0.76923em;
+  display: none;
 }
+
 #dj-critique-create ul {
   margin: 0;
   padding: 0;
 }
+
 #dj-critique-create ul li {
   list-style: none;
   margin: 0 0 0.76923em 0;
@@ -96,6 +85,7 @@
   width: 100%;
   z-index: 20;
 }
+
 #dj-critique-feedback p {
   line-height: 2em;
   margin: 0;
@@ -107,12 +97,7 @@
   text-transform: none;
   width: 49%;
 }
-@media only screen and (min-width: 480px) {
-  #dj-critique-actions input {
-    width: auto;
-    padding: 0 3.84615em;
-  }
-}
+
 #dj-critique-actions input:focus {
   outline: none;
 }
@@ -120,56 +105,65 @@
 #dj-critique-submit {
   float: left;
 }
-@media only screen and (min-width: 480px) {
-  #dj-critique-submit {
-    margin: 0 0.76923em 0 0;
-  }
-}
 
 #dj-critique-cancel {
   float: right;
 }
+
 @media only screen and (min-width: 480px) {
-  #dj-critique-cancel {
-    float: none;
+  #dj-critique-wrapper {
+    width: 90%;
   }
 }
-/* Desktop styles */
-/*@media screen and (min-width: 767px) {*/
-/*#dj-critique {*/
-  /*position: fixed;*/
-  /*top: 100px;*/
-  /*right: -250px;*/
-  /*right: 0;*/
-/*}*/
 
-  /*#dj-critique-prompt {*/
+@media screen and (min-width: 767px) {
+  #dj-critique {
+    position: fixed;
+    top: 100px;
+    right: -230px;
+  }
+
+  #dj-critique-wrapper {
+    width: 100%;
+    padding: 10px;
+    /*position: relative;*/
+  }
+
+  #dj-critique-prompt {
     /*width: 50px;*/
-    /*float: left;*/
+    float: left;
     /*transform:rotate(90deg);*/
     /*-ms-transform:rotate(90deg); */ /* IE 9 */
-    /*-webkit-transform:rotate(90deg); */ /* Safari and Chrome */
-  /*}*/
+    /*-webkit-transform:rotate(90deg);  /* Safari and Chrome */*/
+    /*position: absolute;*/
+    /*top: -40px;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*-webkit-transform-origin: 100% 50%;*/
+    /*-webkit-transform: rotate(90deg) translate(50%, 50%);*/
+    /*right: 0;*/
+  }
 
-  /*#dj-critique-create {
-    display: block;
+  #dj-critique-create {
+    display: block !important;
     width: 210px;
     float: left;
-  }*/
-/*}*/
+  }
+}
 
 /**
  * Utilities
  */
-/* Clearfix */
+
 .dj-critique-hidden {
   display: none !important;
 }
-
+/* Clearfix */
 .dj-critique-clearfix:before {
   content: " ";
   display: table;
 }
+
 .dj-critique-clearfix:after {
   content: " ";
   display: table;
