@@ -50,7 +50,7 @@ function bindHandlers() {
     $form.submit(function() { return false; });
 
     $cancel.on('click', function() {
-        hideForm();
+        toggleDisplay();
     });
 
     $submit.on('click', function() {
