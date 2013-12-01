@@ -45,8 +45,6 @@ class SeleniumTestCase(LiveServerTestCase):
 
 class UI(SeleniumTestCase):
     def setUp(self):
-        self.wd = CustomWebDriver()
-        self.open()
         self.cancel = self.wd.find_element_by_id("dj-critique-cancel")
         self.email = self.wd.find_element_by_id("dj-critique-email")
         self.feedback = self.wd.find_element_by_id("dj-critique-feedback")
@@ -54,6 +52,14 @@ class UI(SeleniumTestCase):
         self.panel = self.wd.find_element_by_id("dj-critique-create")
         self.prompt = self.wd.find_element_by_id("dj-critique-prompt")
         self.submit = self.wd.find_element_by_id("dj-critique-submit")
+
+
+class HandheldUI(UI):
+    def setUp(self):
+        self.wd = CustomWebDriver()
+        self.wd.set_window_size(320, 480)
+        self.open()
+        super(HandheldUI, self).setUp()
 
     def tearDown(self):
         self.wd.quit()
