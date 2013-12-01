@@ -12,7 +12,8 @@ class CritiqueCreate(TestCase):
 
     def test_get(self):
         """404"""
-        response = self.client.get(reverse("critique_create"))
+        response = self.client.get(
+            reverse("critique_create"), CONTENT_TYPE="text/plain")
         self.assertEqual(response.status_code, 404)
 
     def test_non_ajax(self):
