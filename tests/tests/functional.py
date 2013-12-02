@@ -45,6 +45,8 @@ class SeleniumTestCase(LiveServerTestCase):
 
 class UI(SeleniumTestCase):
     def setUp(self):
+        self.wd = CustomWebDriver()
+        self.open()
         self.cancel = self.wd.find_element_by_id("dj-critique-cancel")
         self.email = self.wd.find_element_by_id("dj-critique-email")
         self.feedback = self.wd.find_element_by_id("dj-critique-feedback")
@@ -53,36 +55,36 @@ class UI(SeleniumTestCase):
         self.prompt = self.wd.find_element_by_id("dj-critique-prompt")
         self.submit = self.wd.find_element_by_id("dj-critique-submit")
 
-
-class HandheldUI(UI):
-    def setUp(self):
-        self.wd = CustomWebDriver()
-        self.wd.set_window_size(320, 480)
-        self.open()
-        super(HandheldUI, self).setUp()
-
     def tearDown(self):
         self.wd.quit()
 
-    def _open_panel(self):
-        self.prompt.click()
-        self.assertTrue(self.panel.is_displayed())
+
+class DesktopUI(UI):
+    def setUp(self):
+        super(DesktopUI, self).setUp()
+        self.wrapper = self.wd.find_element_by_id("dj-critique")
+
+    def _is_wrapper_visible(self):
+        return self.wrapper.value_of_css_property("right") == "0px"
 
     def test_form_invisible(self):
-        self.assertFalse(self.panel.is_displayed())
+        self.assertFalse(self._is_wrapper_visible())
 
     def test_form_visible(self):
-        self._open_panel()
+        self.prompt.click()
+        sleep(.5)
+        self.assertTrue(self._is_wrapper_visible())
 
     def test_click_cancel(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.cancel.click()
         sleep(.5)
-        self.assertFalse(self.panel.is_displayed())
+        self.assertFalse(self._is_wrapper_visible())
 
     def test_input_email_empty(self):
-        self._open_panel()
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("")
         sleep(.25)
         self.submit.click()
@@ -91,8 +93,8 @@ class HandheldUI(UI):
         self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_invalid(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("jdb")
         sleep(.25)
         self.submit.click()
@@ -101,8 +103,8 @@ class HandheldUI(UI):
         self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_message_empty(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("test@test.com")
         self.message.send_keys("")
         sleep(.25)
@@ -113,8 +115,8 @@ class HandheldUI(UI):
             self.message.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_invalid_message_empty(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("test")
         self.message.send_keys("")
         sleep(.25)
@@ -126,8 +128,8 @@ class HandheldUI(UI):
         self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_email_and_message_empty(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("")
         self.message.send_keys("")
         sleep(.25)
@@ -139,8 +141,8 @@ class HandheldUI(UI):
         self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
 
     def test_input_ok(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("test@test.com")
         self.message.send_keys("Test message")
         sleep(.25)
@@ -149,8 +151,8 @@ class HandheldUI(UI):
         self.assertEqual(self.feedback.text, "Success!")
 
     def test_persists_email(self):
-        self._open_panel()
-        sleep(.25)
+        self.prompt.click()
+        sleep(.5)
         self.email.send_keys("test@test.com")
         self.message.send_keys("Test message")
         sleep(.25)
@@ -158,6 +160,109 @@ class HandheldUI(UI):
         sleep(2)
         self.assertEqual(self.feedback.text, "Success!")
         sleep(3)
-        self._open_panel()
+        self.prompt.click()
+        sleep(.5)
+        self.assertEqual(self.email.get_attribute("value"), "test@test.com")
+
+
+class HandheldUI(UI):
+    def setUp(self):
+        super(HandheldUI, self).setUp()
+        self.wd.set_window_size(320, 480)
+
+    def test_form_invisible(self):
+        self.assertFalse(self.panel.is_displayed())
+
+    def test_form_visible(self):
+        self.prompt.click()
+        sleep(.5)
+        self.assertTrue(self.panel.is_displayed())
+
+    def test_click_cancel(self):
+        self.prompt.click()
+        sleep(.5)
+        self.cancel.click()
+        sleep(.5)
+        self.assertFalse(self.panel.is_displayed())
+
+    def test_input_email_empty(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("")
+        sleep(.25)
+        self.submit.click()
+        sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
+
+    def test_input_email_invalid(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("jdb")
+        sleep(.25)
+        self.submit.click()
+        sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
+
+    def test_input_message_empty(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("")
+        sleep(.25)
+        self.submit.click()
+        sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(
+            self.message.get_attribute("class"), "dj-critique-error")
+
+    def test_input_email_invalid_message_empty(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("test")
+        self.message.send_keys("")
+        sleep(.25)
+        self.submit.click()
+        sleep(.25)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(
+            self.message.get_attribute("class"), "dj-critique-error")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
+
+    def test_input_email_and_message_empty(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("")
+        self.message.send_keys("")
+        sleep(.25)
+        self.submit.click()
+        sleep(.5)
+        self.assertEqual(self.feedback.text, "Invalid Submission!")
+        self.assertEqual(
+            self.message.get_attribute("class"), "dj-critique-error")
+        self.assertEqual(self.email.get_attribute("class"), "dj-critique-error")
+
+    def test_input_ok(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("Test message")
+        sleep(.25)
+        self.submit.click()
+        sleep(.25)
+        self.assertEqual(self.feedback.text, "Success!")
+
+    def test_persists_email(self):
+        self.prompt.click()
+        sleep(.5)
+        self.email.send_keys("test@test.com")
+        self.message.send_keys("Test message")
+        sleep(.25)
+        self.submit.click()
+        sleep(2)
+        self.assertEqual(self.feedback.text, "Success!")
+        sleep(3)
+        self.prompt.click()
         sleep(.5)
         self.assertEqual(self.email.get_attribute("value"), "test@test.com")

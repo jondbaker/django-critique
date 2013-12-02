@@ -32,7 +32,7 @@ function afterError() {
 function afterSuccess() {
     setTimeout(function() {
         $feedback.fadeOut(config.rate, function() {
-            hideForm(resetMessage);
+            toggleDisplay(resetMessage);
         });
     }, config.delay); 
 }
@@ -140,13 +140,6 @@ function handleSubmit($form) {
     $submits.removeAttr('disabled', '');
 }
 
-
-function hideForm(callback) {
-    $form.slideUp(config.rate, function() {
-        if (callback) { callback(); }
-    });
-}
-
 function resetMessage() {
     fields.message.$elem.val(fields.message.defaultValue);
 }
@@ -155,9 +148,11 @@ function setCookie(key, value) {
     document.cookie = key + '=' + value + ';';
 }
 
-function toggleDisplay() {
+function toggleDisplay(callback) {
     if (window.innerWidth < 768) {  // handheld
-        $form.slideToggle();
+        $form.slideToggle(config.rate, function() {
+            if (callback) { callback(); }
+        });
     } else {  // desktop
         var right = -Math.abs($form.outerWidth(true));
 
@@ -167,7 +162,9 @@ function toggleDisplay() {
 
         $wrapper.animate({
             right: right 
-        }, 500);
+        }, 500, function() {
+            if (callback) { callback(); }
+        });
     }
 }
 
